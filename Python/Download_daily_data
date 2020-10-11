@@ -29,5 +29,6 @@ res = requests.get('https://api.coronavirus.data.gov.uk/v1/data?filters=areaType
 res.raise_for_status()
 playFile = open('Deaths_by_date.csv', 'wb')
 for chunk in res.iter_content(100000):
-        playFile.write(chunk)        
+        playFile.write(chunk)    
+        
         
