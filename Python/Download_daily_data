@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Oct 10 21:00:16 2020
+
+@author: elsie
+"""
+
+
+import requests
+res = requests.get('https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation&structure=%7B%22areaType%22:%22areaType%22,%22areaName%22:%22areaName%22,%22areaCode%22:%22areaCode%22,%22date%22:%22date%22,%22newCasesBySpecimenDate%22:%22newCasesBySpecimenDate%22,%22cumCasesBySpecimenDate%22:%22cumCasesBySpecimenDate%22%7D&format=csv')
+res.raise_for_status()
+playFile = open('Cases_by_specimen_date.csv', 'wb')
+for chunk in res.iter_content(100000):
+        playFile.write(chunk)
+        
+res = requests.get('https://api.coronavirus.data.gov.uk/v1/data?filters=areaName=United%2520Kingdom;areaType=overview&structure=%7B%22areaType%22:%22areaType%22,%22areaName%22:%22areaName%22,%22areaCode%22:%22areaCode%22,%22date%22:%22date%22,%22newCasesByPublishDate%22:%22newCasesByPublishDate%22,%22cumCasesByPublishDate%22:%22cumCasesByPublishDate%22%7D&format=csv')
+res.raise_for_status()
+playFile = open('Cases_by_date_reported.csv', 'wb')
+for chunk in res.iter_content(100000):
+        playFile.write(chunk)
+        
+res = requests.get('https://coronavirus.data.gov.uk/downloads/msoa_data/MSOAs_latest.csv')
+res.raise_for_status()
+playFile = open('Cases_by_area_England.csv', 'wb')
+for chunk in res.iter_content(100000):
+        playFile.write(chunk)
+        
+res = requests.get('https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation&structure=%7B%22areaType%22:%22areaType%22,%22areaName%22:%22areaName%22,%22areaCode%22:%22areaCode%22,%22date%22:%22date%22,%22newDeaths28DaysByPublishDate%22:%22newDeaths28DaysByPublishDate%22,%22cumDeaths28DaysByPublishDate%22:%22cumDeaths28DaysByPublishDate%22%7D&format=csv')
+res.raise_for_status()
+playFile = open('Deaths_by_date.csv', 'wb')
+for chunk in res.iter_content(100000):
+        playFile.write(chunk)        
+        
